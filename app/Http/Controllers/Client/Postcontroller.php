@@ -20,10 +20,12 @@ class Postcontroller extends Controller
         return view("client.home", compact('data', 'categories','data1', 'tags'));
     }
     public function search(Request $request){
+        $tags = Tag::query()->get();
         $categories = $this->listPost();
         $keyWord = $request->input('name');
+        $data1 = Post::query()->orderByDesc('view')->paginate(6);
         $data = Post::where('name','LIKE', "%$keyWord%")->paginate(6);
-        return view('client.home',compact('data','categories'));
+        return view('client.home',compact('data','categories', 'tags', 'data1'));
     }
 
     public function chiTiet(string $post){
