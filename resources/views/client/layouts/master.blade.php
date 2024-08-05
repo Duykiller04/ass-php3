@@ -12,9 +12,14 @@
 </head>
 
 <body>
+    
+    @if (Session::has('error') || Session::has('success'))
+        @include('admin.layouts.partials.notification')
+    @endif
+
     <div class="site-wrap">
         <header class="site-navbar" role="banner">
-            
+
             @include('client.layouts.partials.header-top')
 
             @include('client.layouts.partials.header-nav')
@@ -24,11 +29,11 @@
         <main>
 
             @yield('content')
-            
+
         </main>
 
         <footer class="site-footer border-top">
-            
+
             @include('client.layouts.partials.footer')
 
         </footer>

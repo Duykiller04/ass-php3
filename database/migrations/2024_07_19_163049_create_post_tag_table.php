@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Tag::class)->constrained();
             $table->foreignIdFor(Post::class)->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

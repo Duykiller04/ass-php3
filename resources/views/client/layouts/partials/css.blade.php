@@ -13,3 +13,5 @@
 
 <link rel="stylesheet" href="/theme/client/css/style.css" />
 <script src="https://kit.fontawesome.com/78e4473a65.js" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

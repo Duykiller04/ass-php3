@@ -31,14 +31,20 @@
                         <div class="live-preview">
                             <div class="row gy-4">
 
-                                <div class="col-lg-5">
-                                    <label for="name">Name:</label>
+                                <div class="col-lg-4">
+                                    <label for="name">Tên loại tin</label>
                                     <input type="text" name="name" id="name" class="form-control"
                                         placeholder="Enter name">
                                 </div>
 
-                                <div class="col-lg-5">
-                                    <label for="parent_id" class="form-label">Loại tin</label>
+                                <div class="col-lg-4">
+                                    <label for="description">Mô tả</label>
+                                    <input type="text" name="description" id="description" class="form-control"
+                                        placeholder="Enter description">
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label for="parent_id" class="form-label">Loại tin cha</label>
                                     <select id="" class="js-example-basic-single form-control" name="parent_id"
                                         id="parent_id">
                                         <option value="" selected>Trống</option>

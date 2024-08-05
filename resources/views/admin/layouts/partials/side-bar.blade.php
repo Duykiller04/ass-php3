@@ -32,6 +32,7 @@
             </div>
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="sidebarDashboards">
@@ -49,15 +50,54 @@
                             </li>
                         </ul>
                     </div>
-                </li> <!-- end Dashboard Menu -->
+                </li>
+
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="widgets.html">
-                        <i class="ri-honour-line"></i> <span data-key="t-widgets">Widgets</span>
+                    <a class="nav-link menu-link" href="#tin" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="tin">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Tin</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="tin">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('posts.index') }}" class="nav-link" data-key="t-analytics">
+                                    Danh sách </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('posts.create') }}" class="nav-link" data-key="t-analytics">
+                                    Thêm mới </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#user" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="user">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Người dùng</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="user">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link" data-key="t-analytics">
+                                    Danh sách </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users.create') }}" class="nav-link" data-key="t-analytics">
+                                    Thêm mới </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('comments.index') }}">
+                        <i class="ri-honour-line"></i> <span data-key="t-widgets">Bình luận</span>
                     </a>
                 </li>
 
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span>
+                {{-- <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span>
                 </li>
 
                 <li class="nav-item">
@@ -114,7 +154,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
             </ul>
         </div>
         <!-- Sidebar -->

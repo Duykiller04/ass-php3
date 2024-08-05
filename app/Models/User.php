@@ -4,13 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+
+
+    const TYPE_ADMIN = 'admin';
+    const TYPE_MEMBER = 'member';
 
     /**
      * The attributes that are mass assignable.
@@ -19,8 +24,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'image',
         'email',
         'password',
+        'type',
     ];
 
     /**
@@ -43,7 +50,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->type == self::TYPE_ADMIN;
+    }
+    public function isMember()
+    {
+        return $this->type == self::TYPE_MEMBER;
     }
 }

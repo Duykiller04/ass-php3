@@ -27,13 +27,21 @@
                 <hr>
                     <div class="row mt-3 mb-3">
                         <div class="col-4">
-                            <img src="{{ $item->image }}" class="card-img-top" alt="..." style="height: 200px">
+                            <a href="{{ route('tin.chitiet', $item->id) }}">
+                                @php
+                                    $url = $item->image;
+                                    if (!Str::contains($url, 'http')) {
+                                        $url = Storage::url($url);
+                                    }
+                                @endphp
+                                <img src="{{ $url }}"  class="card-img-top" alt="..." style="height: 200px">
+                            </a>
                         </div>
                         <div class="col-8">
                             <a href="{{ route('tin.chitiet', $item->id) }}" class="text-dark text-decoration-none" >
                                 <h3 class="card-title">{{ Str::limit($item->name, 40, '...') }}</h3>
                             </a>
-                            <p class="card-text">{{ Str::limit($item->description, 80, '...') }}</p>
+                            <p class="card-text">{!! Str::limit($item->description, 80, '...') !!}</p>
                         </div>
                     </div>
                 @endforeach

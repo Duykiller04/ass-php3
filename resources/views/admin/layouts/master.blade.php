@@ -11,10 +11,15 @@
     <meta content="Themesbrand" name="author" />
 
     @include('admin.layouts.partials.css')
+    @yield('css')
 
 </head>
 
 <body>
+
+    @if (Session::has('error') || Session::has('success'))
+        @include('admin.layouts.partials.notification')
+    @endif
 
     <!-- Begin page -->
     <div id="layout-wrapper">
@@ -52,6 +57,7 @@
     <!-- END layout-wrapper -->
     <!-- JAVASCRIPT -->
     @include('admin.layouts.partials.js')
+    @yield('js')
 </body>
 
 </html>

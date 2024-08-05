@@ -17,7 +17,7 @@
                 <div class="site-top-icons">
                     <ul>
                         <li>
-                            <a href="#">Người dùng <span class="icon icon-person"></span></a>
+                            <a href="{{ route('auth.login') }}">{{ Auth::user()->name ?? 'Người dùng' }}<span class="icon icon-person"></span></a>
                         </li>
                     </ul>
                 </div>

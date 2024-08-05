@@ -40,8 +40,9 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Parent</th>
+                                <th>Tên</th>
+                                <th>Mô tả</th>
+                                <th>Loại tin cha</th>
                                 <th>Created at</th>
                                 <th>Updated at</th>
                                 <th>Action</th>
@@ -52,18 +53,23 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ $item->description }}</td>
                                     <td>
                                         {{ $item->parent?->name }}
                                     </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>
-                                        <a href="{{ route('categories.show', $item->id) }}"
-                                            class="btn btn-info mb-3">Xem</a>
-                                        <a href="{{ route('categories.edit', $item->id) }}"
-                                            class="btn btn-warning mb-3">Sửa</a>
-                                        <a href="{{ route('categories.destroy', $item->id) }}"
-                                            onclick="return confirm('Chắc chắn chưa?')" class="btn btn-danger mb-3">Xóa</a>
+                                        <div class="d-flex">
+                                            <a href="{{ route('categories.show', $item) }}" class="btn btn-info mb-3">Xem</a>
+                                            <a href="{{ route('categories.edit', $item) }}" class="btn btn-warning mb-3 ms-3 me-3">Sửa</a>
+                                            <form action="{{ route('categories.destroy', $item) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button onclick="return confirm('Chắc chắn không?')" type="submit"
+                                                    class="btn btn-danger">Xóa</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -76,7 +82,7 @@
     </div>
 @endsection
 
-@section('style-libs')
+@section('css')
     <!--datatable css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
     <!--datatable responsive css-->
@@ -85,7 +91,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" />
 @endsection
 
-@section('script-libs')
+@section('js')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
@@ -107,26 +113,4 @@
             ]
         });
     </script>
-@endsection
-
-@section('scripts')
-    @if (Session::has('success'))
-    <script>
-        Swal.fire({
-            icon: "success",
-            title: "Thành công",
-            text: " {{ session('success') }} ",
-            timer: 2500
-        });
-    </script>
-    @endif
-    @if (Session::has('error'))
-    <script>
-        Swal.fire({
-        icon: "error",
-        title: "Lỗi",
-        text: " {{ session('success') }} ",
-        });
-    </script>
-    @endif
 @endsection

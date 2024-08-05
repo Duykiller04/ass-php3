@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -35,62 +36,60 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        // dd($request->all());
         try {
             Category::query()->create($request->all());
-            return redirect()->route('category.index')->with('success','Thêm thành công danh mục sản phẩm');
+            return redirect()->route('categories.index')->with('success', 'Thêm thành công danh mục sản phẩm');
         } catch (\Exception $e) {
-            return back()->with('error','Lỗi thêm danh mục sản phẩm');
+            Log::error('Lỗi thêm danh mục sản phẩm ' . $e->getMessage());
+            return back()->with('error', 'Lỗi thêm danh mục sản phẩm');
         }
-        
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        $model = Category::query()->findOrFail($id);
-
-        return view(self::PATH_VIEW . __FUNCTION__, compact('model'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        $model = Category::query()->findOrFail($id);
-
-        return view(self::PATH_VIEW . __FUNCTION__, compact('model'));
+        $parentCategories = Category::query()->with(['children'])->whereNull('parent_id')->get();
+        return view(self::PATH_VIEW . __FUNCTION__, compact('category', 'parentCategories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, string $id)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $model = Category::query()->findOrFail($id);
         try {
-            $model->update($request->all());
-            return back()->with('success','Cập nhật thành công danh mục sản phẩm');
+            $category->update($request->all());
+            return back()->with('success', 'Cập nhật thành công danh mục sản phẩm');
         } catch (\Exception $e) {
-            return back()->with('error','Lỗi cập nhật danh mục sản phẩm');
+            Log::error('Lỗi cập nhật danh mục sản phẩm ' . $e->getMessage());
+            return back()->with('error', 'Lỗi cập nhật danh mục sản phẩm');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        $model = Category::query()->findOrFail($id);
-
         try {
-            $model->delete();
-            return redirect()->route('category.index')->with('success','Xóa thành công danh mục sản phẩm');
-            } catch (\Exception $e) {
-            return back()->with('error','Lỗi xóa danh mục sản phẩm');
+            $category->delete();
+            return redirect()->route('categories.index')->with('success', 'Xóa thành công danh mục sản phẩm');
+        } catch (\Exception $e) {
+            Log::error('Lỗi xóa danh mục sản phẩm ' . $e->getMessage());
+            return back()->with('error', 'Lỗi xóa danh mục sản phẩm');
         }
-    
+
     }
 }

@@ -19,9 +19,12 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table->string('name');
             $table->string('image');
-            $table->string('view');
-            $table->string('description');
-            $table->boolean('is_active')->default(true);
+            $table->string('view')->default(0);
+            $table->string('description', 2000);
+            $table->boolean('is_show_home')->default(true);
+            $table->boolean('is_hot')->default(false);
+            $table->boolean('is_new')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
